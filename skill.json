@@ -39,6 +39,9 @@
       },
       {
         "name": "alexa::alerts:timers:skill:readwrite"
+      },
+      {
+        "name": "alexa::devices:all:notifications:write"
       }
     ],
     "privacyAndCompliance": {
