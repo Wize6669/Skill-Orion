@@ -234,6 +234,55 @@ const GetEmergencyOrdersIntentHandler = {
     }
 };
 
+const GetOrdersIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'GetOrdersIntent';
+    },
+    async handle(handlerInput) {
+        const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        
+        const subDomain = sessionAttributes['subDomain'];
+        const accessToken = sessionAttributes['accessToken'];
+        
+        let speakOutput = '';
+        const progressiveMsg = "Espera un momento, se está consultando la información";
+        
+         try {
+            // call the progressive response service
+            await logic.callDirectiveService(handlerInput, progressiveMsg);
+        } catch (error) {
+            // if it fails we can continue, but the user will wait without progressive response
+            console.log("Progressive response directive error : " + error);
+        }
+        
+        //const url = 'https://api-v2-node.onrender.com/api/v1/orders-summary?fecha_orden_desde=${dateFrom}&fecha_orden_hasta=${dateTo}&emergencia=true';
+        const dateQuery = logic.getWeekDates()
+        const { dateFrom, dateTo } = dateQuery;
+        const urlT = `https://orion-labs.com/api/v1/ordenes-resumen?fecha_orden_desde=${dateFrom}&fecha_orden_hasta=${dateTo}&emergencia=false`;
+        const subD = subDomain;
+        const url = logic.getFinalURL(urlT, subD);
+        
+        try {
+            const response = await logic.getEmergencyOrders(url, accessToken);
+        
+            const { generated, inProcess, preliminary, reported, validated } = response;
+            console.log("fornt", response)
+            
+            speakOutput = 'Existe la siguiente carga de trabajo: generado: '+ generated + ' ,en proceso: ' + inProcess + ', reportada: ' + reported + ' , preliminar: '+ preliminary  + ' y validada: '+ validated;
+            
+        } catch (error) {
+            console.error(error);
+            speakOutput = 'Lo siento, hubo un error con la consulta de los datos. Puedes intentar otra acción';
+        }
+
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
+            .getResponse();
+    }
+};
+
 
 
 const RemindEmergencyOrdersIntentHandler = {
@@ -388,8 +437,8 @@ const HelpIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.HelpIntent';
     },
     handle(handlerInput) {
-        const speakOutput = 'Hola, estás en la skill de Orión. Puedes pedirme que consulte un resumen sobre la carga actual de tu trabajo. ' + 
-        'Para hacerlo, debes decir: "¿Cuántas órdenes de emergencia tengo hoy?" ' + 'Además, puedes pedirme que cree un recordatorio sobre tu carga actual de trabajo. ' +
+        const speakOutput = 'Hola, estás en la skill de Orión. Puedes pedirme que consulte un resumen sobre la carga de tu trabajo. ' + 
+        'Para hacerlo, debes decir: "¿Cuántas órdenes de emergencia tengo?" ' + 'Además, puedes pedirme que cree un recordatorio sobre tu carga de trabajo. ' +
         'Para hacerlo, debes decir: "Crea un recordatorio para las ordenes de emergencia". ' + 'Pero antes de pedirme estas acciones, no te olvides de configurar la skill. ' + 
         'Para hacerlo, puedes decir el comando "Configurar skill". ' + 'Una vez configurada la skill, debes decir el comando "Iniciar sesión"'
 
@@ -499,6 +548,7 @@ exports.handler = Alexa.SkillBuilders.custom()
         ConfigureSkillIntentHandler,
         RemindEmergencyOrdersIntentHandler,
         GetEmergencyOrdersIntentHandler,
+        GetOrdersIntentHandler,
         LoginIntentHandler,
         HelloWorldIntentHandler,
         HelpIntentHandler,

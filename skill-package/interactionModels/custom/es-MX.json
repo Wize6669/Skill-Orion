@@ -144,9 +144,9 @@
           "name": "GetEmergencyOrdersIntent",
           "samples": [
             "Dime la cantidad de ordenes de emergencia",
-            "Cuál es el número de ordenes de emergencia para hoy",
-            "Cuántas ordenes de emergencia tengo hoy",
-            "Dime cuántas ordenes de emergencia tengo hoy"
+            "Cuál es el número de ordenes de emergencia",
+            "Cuántas ordenes de emergencia tengo",
+            "Dime cuántas ordenes de emergencia tengo"
           ]
         },
         {
@@ -161,6 +161,16 @@
             "Iniciar sesión",
             "Iniciar sesión y el pin es {accessCode}",
             "Conectarme al sistema y el pin es {accessCode}"
+          ]
+        },
+        {
+          "slots": [],
+          "name": "GetOrdersIntent",
+          "samples": [
+            "Cuál es el número de ordenes",
+            "Dime cuántas ordenes tengo",
+            "Cuántas órdenes se tiene",
+            "Dime la cantidad de órdenes"
           ]
         }
       ],
