@@ -1,0 +1,267 @@
+{
+  "interactionModel": {
+    "dialog": {
+      "intents": [
+        {
+          "slots": [
+            {
+              "name": "laboratoryID",
+              "elicitationRequired": true,
+              "type": "AMAZON.NUMBER",
+              "confirmationRequired": false,
+              "prompts": {
+                "elicitation": "Elicit.Slot.82872774881.1046464309372"
+              }
+            },
+            {
+              "name": "branchCode",
+              "elicitationRequired": true,
+              "type": "AMAZON.NUMBER",
+              "confirmationRequired": false,
+              "prompts": {
+                "elicitation": "Elicit.Slot.82872774881.176974917233"
+              }
+            }
+          ],
+          "name": "ConfigureSkillIntent",
+          "confirmationRequired": false,
+          "prompts": {}
+        },
+        {
+          "slots": [
+            {
+              "name": "periodTime",
+              "elicitationRequired": true,
+              "type": "AMAZON.NUMBER",
+              "confirmationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.1242542607841.1187553882995",
+                "confirmation": "Confirm.Slot.524556307591.926670712560"
+              }
+            }
+          ],
+          "name": "RemindEmergencyOrdersIntent",
+          "confirmationRequired": false,
+          "prompts": {}
+        },
+        {
+          "slots": [
+            {
+              "name": "accessCode",
+              "elicitationRequired": true,
+              "type": "AMAZON.FOUR_DIGIT_NUMBER",
+              "confirmationRequired": false,
+              "prompts": {
+                "elicitation": "Elicit.Slot.308085258706.560804475605"
+              }
+            }
+          ],
+          "name": "LoginIntent",
+          "confirmationRequired": false,
+          "prompts": {}
+        }
+      ],
+      "delegationStrategy": "ALWAYS"
+    },
+    "languageModel": {
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "slots": [],
+          "name": "HelloWorldIntent",
+          "samples": [
+            "hola",
+            "como estás",
+            "di hola mundo",
+            "di hola",
+            "hola mundo"
+          ]
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "slots": [
+            {
+              "name": "laboratoryID",
+              "type": "AMAZON.NUMBER"
+            },
+            {
+              "name": "branchCode",
+              "type": "AMAZON.NUMBER"
+            }
+          ],
+          "name": "ConfigureSkillIntent",
+          "samples": [
+            "Conectarme al laboratorio con el id {laboratoryID} y la sucursal con el id {branchCode}",
+            "Conectarme al laboratorio {laboratoryID} y la sucursal {branchCode}",
+            "El id del laboratorio es {laboratoryID}",
+            "El id de la sucursal es {branchCode}",
+            "La sucursal con el id {branchCode}",
+            "El laboratorio con el id {laboratoryID}",
+            "Configurar skill"
+          ]
+        },
+        {
+          "slots": [
+            {
+              "name": "periodTime",
+              "type": "AMAZON.NUMBER",
+              "samples": [
+                "Te falto decirme el periodo de tiempo. Debes decir una cantidad en minutos {periodTime}"
+              ]
+            }
+          ],
+          "name": "RemindEmergencyOrdersIntent",
+          "samples": [
+            "Crea un recordatorio dentro de {periodTime}",
+            "Pon un recordatorio de las ordenes de emergencia",
+            "Haz un recordatorio de las ordenes de emergencia",
+            "Crea un recordatorio sobre las ordenes de emergencia dentro de {periodTime}",
+            "Crea un recordatorio para las ordenes de emergencia",
+            "Crea un recordatorio de las ordenes de emergencia",
+            "Recuérdame las ordenes dentro de {periodTime}",
+            "Haz un recordatorio",
+            "Recordatorio",
+            "Configurar un recordatorio",
+            "Crea un recordatorio"
+          ]
+        },
+        {
+          "slots": [],
+          "name": "GetEmergencyOrdersIntent",
+          "samples": [
+            "Dime la cantidad de ordenes de emergencia",
+            "Cuál es el número de ordenes de emergencia para hoy",
+            "Cuántas ordenes de emergencia tengo hoy",
+            "Dime cuántas ordenes de emergencia tengo hoy"
+          ]
+        },
+        {
+          "slots": [
+            {
+              "name": "accessCode",
+              "type": "AMAZON.FOUR_DIGIT_NUMBER"
+            }
+          ],
+          "name": "LoginIntent",
+          "samples": [
+            "Iniciar sesión",
+            "Iniciar sesión y el pin es {accessCode}",
+            "Conectarme al sistema y el pin es {accessCode}"
+          ]
+        }
+      ],
+      "types": [],
+      "invocationName": "aplicación orión"
+    },
+    "prompts": [
+      {
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "El id de la sucursal que dijiste es {branchCode}"
+          },
+          {
+            "type": "PlainText",
+            "value": "El id del  laboratorio que dijiste es {laboratoryID}"
+          }
+        ],
+        "id": "Confirm.Intent.1556410886543"
+      },
+      {
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Dime tu nombre"
+          }
+        ],
+        "id": "Elicit.Slot.1556410886543.972901640908"
+      },
+      {
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Dime el nobre de la sucursal"
+          }
+        ],
+        "id": "Elicit.Slot.780936633893.1316421035714"
+      },
+      {
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Te falto decirme el periodo de tiempo, por ejemplo quince "
+          }
+        ],
+        "id": "Elicit.Slot.1242542607841.1187553882995"
+      },
+      {
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Se creara un recordatorio dentro de {periodTime} minutos, está bien?"
+          }
+        ],
+        "id": "Confirm.Slot.524556307591.926670712560"
+      },
+      {
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Te falto decirme el id "
+          }
+        ],
+        "id": "Elicit.Slot.1088819104611.1412419588389"
+      },
+      {
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Te falto decirme el PIN"
+          }
+        ],
+        "id": "Elicit.Slot.1088819104611.136315753443"
+      },
+      {
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Te falto decirme el id del laboratorio"
+          }
+        ],
+        "id": "Elicit.Slot.82872774881.1046464309372"
+      },
+      {
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Te falto decirme el id de la sucursal"
+          }
+        ],
+        "id": "Elicit.Slot.82872774881.176974917233"
+      },
+      {
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Te falto decirme el PIN"
+          }
+        ],
+        "id": "Elicit.Slot.308085258706.560804475605"
+      }
+    ]
+  }
+}
